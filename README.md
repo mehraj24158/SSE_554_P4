@@ -1,8 +1,8 @@
 # SSE_554_P3
 
-Project 3 for SSE_554.
+Project 4 for SSE_554.
 
-Implementing data structures in C++
+Implementing Mutex's in C++
 
  <!-- Use these commands in the terminal -->
 # use this to create binaries for main.cpp
