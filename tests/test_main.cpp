@@ -228,3 +228,28 @@ TEST_F(Inventory, Binary_Search)
     ASSERT_EQ(c.id, 99);
 };
 
+TEST(Shared_Lock, Reader)
+{
+    // create a shared resource
+    Car a;
+
+    //
+}
+
+// Lock MIKAE
+// Unlock MIKAE
+// Std::Lock_guard <std::mutex>  // Talk about RAII  Usman 
+// Std::Unique_lock                       // writer	Usman
+// Std::Shared_lock                       // reader   Mehraj
+// Std::lock                                    // without deadlock Mehraj
+// Std:: scoped_lock 		  // clean lock Mehraj 
+// Conditional Variable
+// Std::conditional_variable   MIKAE
+
+
+
+    
+Std::Shared_lock                       // reader   Mehraj
+Std::lock                                    // without deadlock Mehraj
+Std:: scoped_lock 		  // clean lock Mehraj 
+
