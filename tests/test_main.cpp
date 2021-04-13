@@ -4,6 +4,8 @@
 #include <queue>
 #include <algorithm>
 #include <random>
+#include <mutex>
+#include <shared_mutex>
 #include "src/lib/car.hpp"
 #include "src/lib/engine.hpp"
 #include "src/lib/frame.hpp"
@@ -230,26 +232,32 @@ TEST_F(Inventory, Binary_Search)
 
 TEST(Shared_Lock, Reader)
 {
-    // create a shared resource
-    Car a;
+    // create a shared resource 
+    Car shared_resource;
 
-    //
-}
+    // create threads
+    std::vector<std::thread> threads;
+
+    for(int i = 0; i < 5; i++)
+    {
+        threads.push_back(std::thread(Validate, std::ref(shared_resource)));
+    }
+
+    // all validation threads can run at once, because they are read only with a shared lock
+    for(std::thread &t : threads)
+    {
+        t.join();
+    }
+
+    // No errors from multiple threads acting on the same shared resource
+    // Test passes
+};
 
 // Lock MIKAE
 // Unlock MIKAE
 // Std::Lock_guard <std::mutex>  // Talk about RAII  Usman 
 // Std::Unique_lock                       // writer	Usman
 // Std::Shared_lock                       // reader   Mehraj
-// Std::lock                                    // without deadlock Mehraj
 // Std:: scoped_lock 		  // clean lock Mehraj 
 // Conditional Variable
-// Std::conditional_variable   MIKAE
-
-
-
-    
-Std::Shared_lock                       // reader   Mehraj
-Std::lock                                    // without deadlock Mehraj
-Std:: scoped_lock 		  // clean lock Mehraj 
-
+// Std::conditional_variable   MIKAE 
