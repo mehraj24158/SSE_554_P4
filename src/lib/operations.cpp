@@ -1,9 +1,8 @@
 #include "operations.hpp"
-#include <thread>
-#include <mutex>
-#include <shared_mutex>
+
 
 std::shared_mutex sm;
+std::mutex m1, m2;
 
 //Install Engine if not present in car
 void EngineInstaller(Car* c)
@@ -79,7 +78,7 @@ void TireInstallerVect(std::vector<Car> &cars)
 bool Validate(Car& c)
 {
     // create shared lock 
-    // allows multiple different threads to validate a car
+    // allows multiple different validation threads to validate a car
     std::shared_lock<std::shared_mutex> sm_lock(sm);
 
     if(&(c.tire) == NULL || &(c.engine) == NULL || &(c.frame) == NULL)
@@ -88,4 +87,24 @@ bool Validate(Car& c)
     }
     else
         return true;
+}
+
+
+void Incrementer_Bad1() 
+{
+  for (size_t i = 0; i < 100; i++) 
+  {
+    std::lock_guard<std::mutex> lock1(m2);
+    std::lock_guard<std::mutex> lock2(m1);
+
+  }
+}
+
+void Incrementer_Bad2() 
+{
+  for (size_t i = 0; i < 100; i++) 
+  {
+    std::lock_guard<std::mutex> lock2(m1);
+    std::lock_guard<std::mutex> lock1(m2);
+  }
 }

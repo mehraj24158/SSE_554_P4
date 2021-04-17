@@ -253,6 +253,14 @@ TEST(Shared_Lock, Reader)
     // Test passes
 };
 
+TEST(Scoped_Lock, deadlock_prevention)
+{
+    // Scoped locks are utilized to prevent deadlock from occuring
+    // locks multiple threads without deadlock
+
+    
+}
+
 // Lock MIKAE
 // Unlock MIKAE
 // Std::Lock_guard <std::mutex>  // Talk about RAII  Usman 
