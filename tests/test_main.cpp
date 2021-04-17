@@ -258,7 +258,18 @@ TEST(Scoped_Lock, deadlock_prevention)
     // Scoped locks are utilized to prevent deadlock from occuring
     // locks multiple threads without deadlock
 
-    
+    std::vector<std::thread> threads;
+    for (int i = 0; i < 10; i++) 
+    {
+        threads.push_back(std::thread(no_dead_lock));
+    }
+
+    for (std::thread &t : threads) 
+    {
+        t.join();
+    }
+    // No system deadlock or exceptions
+    // code passes
 }
 
 // Lock MIKAE

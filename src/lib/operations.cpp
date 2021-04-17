@@ -1,6 +1,5 @@
 #include "operations.hpp"
 
-
 std::shared_mutex sm;
 std::mutex m1, m2;
 
@@ -90,21 +89,22 @@ bool Validate(Car& c)
 }
 
 
-void Incrementer_Bad1() 
-{
-  for (size_t i = 0; i < 100; i++) 
-  {
-    std::lock_guard<std::mutex> lock1(m2);
-    std::lock_guard<std::mutex> lock2(m1);
-
-  }
+void dead_lock1()
+{   
+    // will create deadlock
+    std::lock_guard<std::mutex> lock1(m1);
+    std::lock_guard<std::mutex> lock2(m2);
 }
 
-void Incrementer_Bad2() 
+void dead_lock2()
 {
-  for (size_t i = 0; i < 100; i++) 
-  {
-    std::lock_guard<std::mutex> lock2(m1);
+    // will create deadlock
     std::lock_guard<std::mutex> lock1(m2);
-  }
+    std::lock_guard<std::mutex> lock2(m1);
+}
+
+void no_dead_lock()
+{
+    // locks multiple mutexes without dead_lock
+    // std::scoped_lock good_lock(m1, m2);
 }

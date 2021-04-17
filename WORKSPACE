@@ -5,3 +5,5 @@ git_repository(
     remote = "https://github.com/google/googletest",
     tag = "release-1.10.0",
 )
+
+BAZEL_CXXOPTS="-std=c++17"

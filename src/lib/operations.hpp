@@ -24,3 +24,8 @@ void TireInstallerVect(std::vector<Car> &cars);
 //Check if car is complete
 bool Validate(Car& c);
 
+void dead_lock1();
+
+void dead_lock2();
+
+void no_dead_lock();
