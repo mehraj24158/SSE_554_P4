@@ -29,3 +29,6 @@ void dead_lock1();
 void dead_lock2();
 
 void no_dead_lock();
+
+void IDIcrement(); 
+void unique_Increment();

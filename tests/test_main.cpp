@@ -271,7 +271,31 @@ TEST(Scoped_Lock, deadlock_prevention)
     // No system deadlock or exceptions
     // code passes
 }
+TEST (IDIncrement, lock_guard)
+{ 
+    std::vector <std::thread> threads;
+    for(int i = 0; i < 100; i++)
+    { 
+        threads.push_back(std::thread(IDIcrement)); 
 
+    } 
+    for(std::thread &t : threads){ 
+        t.join(); 
+    }
+}
+
+TEST (unique_Increment, unique_lock)
+{ 
+    std::vector<std::thread> threads; 
+    for(int i = 0; i< 100; i++)
+    { 
+        threads.push_back(std::thread(unique_Increment));
+    }
+    for(std::thread &t: threads)
+    { 
+        t.join(); 
+    }
+}
 // Lock MIKAE
 // Unlock MIKAE
 // Std::Lock_guard <std::mutex>  // Talk about RAII  Usman 

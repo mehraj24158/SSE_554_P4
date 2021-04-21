@@ -108,3 +108,24 @@ void no_dead_lock()
     // locks multiple mutexes without dead_lock
     // std::scoped_lock good_lock(m1, m2);
 }
+
+void IDIncrement()
+{ 
+    for(size_t i = 0; i<100; i++)
+    { 
+        std::lock (m1,m2); 
+
+        std:lock_guard<std::mutex> lock1(m1,std:: adopt_lock);
+        std:lock_guard<std::mutex> lock2(m2,std:: adopt_lock);
+    }
+}
+
+void unique_Increment()
+{ 
+    for(size_t i=0 ; i<100; i++)
+    { 
+        std::unique_lock <std::mutex> u1(m1);
+        u1.unlock(); 
+        u1.lock(); 
+    }
+}
