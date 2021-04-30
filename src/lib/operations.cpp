@@ -1,7 +1,10 @@
 #include "operations.hpp"
 
 std::shared_mutex sm;
-std::mutex m1, m2;
+std::mutex m1, m2, g_mutex;
+std::conditional_variable cv;
+bool ready = false;
+unsigned long counter;
 
 //Install Engine if not present in car
 void EngineInstaller(Car* c)
@@ -128,4 +131,26 @@ void unique_Increment()
         u1.unlock(); 
         u1.lock(); 
     }
+}
+
+void standard() //multithreading using regular lock() and unlock() with mutex
+{
+    //for the size of the thread being multithreaded, lock until data
+    for(size_t i=0; i<100; i++)
+    {
+         g_mutex.lock();
+        counter++;
+        g_mutex.unlock();
+    }
+}
+
+void conditional()
+{
+  std::unique_lock<std::mutex> lck(mtx);
+  while (!ready) {
+    cv.wait(lck);
+  }
+
+  ready = true;
+  cv.notify_all();
 }

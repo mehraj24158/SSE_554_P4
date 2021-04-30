@@ -296,6 +296,35 @@ TEST (unique_Increment, unique_lock)
         t.join(); 
     }
 }
+TEST (standard, lock_unlock)
+{
+    std::vector<std::thread> threads;
+    for(int i = 0; i<100; i++)
+    {
+        threads.push_back(std::thread(Incrementer));
+    }
+     for(std::thread &t: threads)
+    { 
+        t.join(); 
+    }
+}
+
+TEST(conditional, conditional_test)
+{
+   std::vector<Car> cars;
+    for(int i=0; i<100; i++)
+    {
+        threads[i] = std::cars(print_id, i);
+
+    }
+
+    go();
+    for (auto& t : threads)
+    {
+        t.join();
+    }
+    return 0;
+}
 // Lock MIKAE
 // Unlock MIKAE
 // Std::Lock_guard <std::mutex>  // Talk about RAII  Usman 
